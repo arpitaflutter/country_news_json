@@ -19,7 +19,7 @@ class _home_screenState extends State<home_screen> {
   void initState() {
     super.initState();
 
-    Provider.of<homeProvider>(context,listen: false).getNews("in");
+    Provider.of<homeProvider>(context,listen: false).getNews;
   }
   @override
   Widget build(BuildContext context) {
@@ -43,16 +43,16 @@ class _home_screenState extends State<home_screen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextButton(onPressed: () {
-                       ht!.getNews("in");
+                      hf!.change("in");
                     }, child: Text("in")),
                     TextButton(onPressed: () {
-                      ht!.getNews("uk");
+                      hf!.change("uk");
                     }, child: Text("uk")),
                     TextButton(onPressed: () {
-                      ht!.getNews("au");
+                      hf!.change("au");
                     }, child: Text("au")),
                     TextButton(onPressed: () {
-                      ht!.getNews("us");
+                      hf!.change("us");
                     }, child: Text("us")),
                   ],
                 ),
@@ -69,7 +69,7 @@ class _home_screenState extends State<home_screen> {
                       return Expanded(
                         child: ListView.builder(itemBuilder: (context, index) {
                           return ListTile(
-                            title: Text("${w1.totalResults}"),
+                            title: Text("${w1.articles[index].title}"),
                             subtitle: Text("${w1.articles[index].author}"),
                           );
                         },
@@ -80,7 +80,7 @@ class _home_screenState extends State<home_screen> {
 
                   return CircularProgressIndicator();
                 },
-                  future: ht!.getNews("in"),
+                  future: hf!.getNews(ht!.selectedCountry),
                 )
               ],
             ),

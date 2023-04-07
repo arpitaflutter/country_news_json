@@ -5,6 +5,14 @@ import 'package:flutter/material.dart';
 class homeProvider extends ChangeNotifier
 {
 
+  String selectedCountry = "in";
+
+  void change(String country)
+  {
+    selectedCountry = country;
+    notifyListeners();
+  }
+
   Future<Welcome> getNews(country)
   async {
 
@@ -14,5 +22,4 @@ class homeProvider extends ChangeNotifier
     return NewsApi;
 
   }
-  notifyListeners();
 }
