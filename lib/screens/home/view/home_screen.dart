@@ -28,11 +28,7 @@ class _home_screenState extends State<home_screen> {
     hf = Provider.of<homeProvider>(context,listen: false);
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text("Country News"),
-          centerTitle: true,
-          backgroundColor: Colors.black,
-        ),
+        backgroundColor: Colors.black,
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(15.0),
@@ -44,16 +40,17 @@ class _home_screenState extends State<home_screen> {
                   children: [
                     TextButton(onPressed: () {
                       hf!.change("in");
-                    }, child: Text("in")),
+                    },
+                        child: Text("in",style: TextStyle(color: Colors.white,fontSize: 17),)),
                     TextButton(onPressed: () {
                       hf!.change("uk");
-                    }, child: Text("uk")),
+                    }, child: Text("uk",style: TextStyle(color: Colors.white,fontSize: 17))),
                     TextButton(onPressed: () {
                       hf!.change("au");
-                    }, child: Text("au")),
+                    }, child: Text("au",style: TextStyle(color: Colors.white,fontSize: 17))),
                     TextButton(onPressed: () {
                       hf!.change("us");
-                    }, child: Text("us")),
+                    }, child: Text("us",style: TextStyle(color: Colors.white,fontSize: 17))),
                   ],
                 ),
                 FutureBuilder(builder: (context, snapshot) {
@@ -68,16 +65,33 @@ class _home_screenState extends State<home_screen> {
 
                       return Expanded(
                         child: ListView.builder(itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text("${w1.articles[index].title}"),
-                            subtitle: Text("${w1.articles[index].author}"),
+                          return Container(
+                            height: 200,width: double.infinity                                                                                                                            ,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Column(
+                                  // mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: 13,),
+                                    Text("${w1.articles[index].author}",style: TextStyle(color: Colors.white)),
+                                    // Text("${w1.articles[index].author}",style: TextStyle(color: Colors.white)),
+                                  ],
+                                ),
+                                Spacer(),
+                                Container(
+                                  height: 130,width: 130,
+                                  child: Image.network("${w1.articles[index].url}",fit: BoxFit.cover),
+                                ),
+                              ],
+                            ),
                           );
                         },
                           itemCount: w1!.articles.length,
                         ),
                       );
                     }
-
                   return CircularProgressIndicator();
                 },
                   future: hf!.getNews(ht!.selectedCountry),
